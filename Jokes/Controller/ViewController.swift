@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+    // MARK: - Private property
     
     private var jokes: [Joke]?
     private var network: Networking?
@@ -33,6 +33,8 @@ class ViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - Override methods
+    
     override func loadView() {
         super.loadView()
         addTableViewToSuperView()
@@ -44,9 +46,11 @@ class ViewController: UIViewController {
         title = "Jokes"
         network = Networking()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard)))
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadingViewRaiseAboveTheKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    // MARK: - Actions
     
     @objc func loadJokes() {
         guard let text = loadingView.textField.text else { return }
@@ -62,16 +66,16 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func loadingViewRaiseAboveTheKeyboard(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             self.bottomConstraintLodingView?.constant = -keyboardSize.height
             self.view.layoutIfNeeded()
         })
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             self.bottomConstraintLodingView?.constant = -80
             self.view.layoutIfNeeded()
         })

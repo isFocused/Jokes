@@ -15,6 +15,7 @@ class LoadingView: UIView {
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.effect = UIBlurEffect(style: .prominent)
         return view
     }()
     
@@ -25,6 +26,10 @@ class LoadingView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .center
         textField.keyboardType = .decimalPad
+        if #available(iOS 13.0, *) {
+            textField.textColor = .secondaryLabel
+            textField.tintColor = .secondaryLabel
+        }
         return textField
     }()
     
@@ -74,10 +79,7 @@ class LoadingView: UIView {
     }
     
     func setBlurView() {
-        let blurEffect = UIBlurEffect(style: .light)
         addSubview(blurView)
-        blurView.effect = blurEffect
-       
         blurView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         blurView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         blurView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
