@@ -18,7 +18,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstViewController = create(ViewController(),
+        firstViewController = create(JokeViewController(),
                                      title: "Jokes",
                                      image: #imageLiteral(resourceName: "jokesIcon"),
                                      tag: 1)
@@ -33,8 +33,8 @@ class TabBarController: UITabBarController {
     // MARK: - Private methods
     
     private func create(_ viewController: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
-        let firstViewController = UINavigationController(rootViewController: viewController)
-        firstViewController.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
-        return firstViewController
+        let controller = UINavigationController(rootViewController: viewController)
+        controller.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
+        return controller
     }
 }

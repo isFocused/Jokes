@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  JsonData.swift
 //  JsonData
 //
 //  Created by Denis Ivanov on 07.03.2020.

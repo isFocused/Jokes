@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  JokeViewController.swift
 //  Jokes
 //
 //  Created by Denis Ivanov on 07.03.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class JokeViewController: UIViewController {
     // MARK: - Private property
     
     private var jokes: [Joke]?
@@ -39,12 +39,12 @@ class ViewController: UIViewController {
         super.loadView()
         addTableViewToSuperView()
         creatLoadView()
+        network = Networking()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Jokes"
-        network = Networking()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard)))
         NotificationCenter.default.addObserver(self, selector: #selector(loadingViewRaiseAboveTheKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension JokeViewController: UITableViewDataSource {
     // MARK: - UTableViewDataSourse
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,6 +9,7 @@
 import UIKit
 
 class LoadingView: UIView {
+    // MARK: - UI elements
     
     var blurView: UIVisualEffectView = {
        let view = UIVisualEffectView()
@@ -43,6 +44,8 @@ class LoadingView: UIView {
         return button
     }()
     
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 20
@@ -56,11 +59,15 @@ class LoadingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override methods
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         button.clipsToBounds = true
         button.layer.cornerRadius = button.frame.height / 2
     }
+    
+     // MARK: - Private methods
     
     private func getTextField() {
         addSubview(textField)
@@ -86,3 +93,4 @@ class LoadingView: UIView {
         blurView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
     }
 }
+
