@@ -12,7 +12,6 @@ class Networking {
     func parseJson(count: String, completion: @escaping ([Joke]) -> ()) {
         let jsonUrlString = "http://api.icndb.com/jokes/random/\(count)?escape=javascript"
         
-        
         guard let url = URL(string: jsonUrlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, respons, error) in
