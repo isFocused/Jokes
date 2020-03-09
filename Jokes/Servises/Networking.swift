@@ -19,7 +19,6 @@ class Networking {
             
             if let error = error {
                 print(error)
-//                completion(nil)
             }
             
             guard let data = data else { return }
