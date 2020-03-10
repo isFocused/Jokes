@@ -54,8 +54,8 @@ class JokeViewController: UIViewController {
     
     @objc func loadJokes() {
         guard let text = loadingView.textField.text else { return }
-        network?.parseJson(count: text) { [weak self] (object) in
-            self?.jokes = object
+        network?.parseJokes(count: text) { [weak self] jokes in
+            self?.jokes = jokes
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
