@@ -35,19 +35,21 @@ class JokeViewController: UIViewController {
     
     // MARK: - Override methods
     
-    override func loadView() {
-        super.loadView()
-        addTableViewToSuperView()
-        creatLoadView()
-        network = Networking()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        network = Networking()
         title = "Jokes"
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard)))
         NotificationCenter.default.addObserver(self, selector: #selector(loadingViewRaiseAboveTheKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        addTableViewToSuperView()
+        creatLoadView()
     }
     
     // MARK: - Actions
@@ -70,14 +72,14 @@ class JokeViewController: UIViewController {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
             self.bottomConstraintLodingView?.constant = -keyboardSize.height
-            self.view.layoutIfNeeded()
+            self.view.layoutSubviews()
         })
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
-            self.bottomConstraintLodingView?.constant = -80
-            self.view.layoutIfNeeded()
+            self.bottomConstraintLodingView?.constant = -10
+            self.view.layoutSubviews()
         })
     }
     
@@ -93,10 +95,11 @@ class JokeViewController: UIViewController {
     
     private func creatLoadView() {
         view.addSubview(loadingView)
+        guard let tabBarTopAnchor = tabBarController?.tabBar.topAnchor else { return }
         loadingView.widthAnchor.constraint(equalToConstant: 170).isActive = true
         loadingView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bottomConstraintLodingView = loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+        bottomConstraintLodingView = loadingView.bottomAnchor.constraint(equalTo: tabBarTopAnchor, constant: -10)
         bottomConstraintLodingView.isActive = true
     }
 }

@@ -21,7 +21,7 @@ class TabBarController: UITabBarController {
         firstViewController = create(JokeViewController(),
                                      title: "Jokes",
                                      image: #imageLiteral(resourceName: "jokesIcon"),
-                                     tag: 1)
+                                     tag: 0)
         secondViewController = create(WebViewController(),
                                       title: "API",
                                       image: #imageLiteral(resourceName: "apiIcon"),
