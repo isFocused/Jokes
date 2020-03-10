@@ -9,7 +9,7 @@
 import Foundation
 
 class Networking {
-    func parseJson(count: String, completion: @escaping ([Joke]) -> ()) {
+    func parseJokes(count: String, completion: @escaping ([Joke]) -> ()) {
         let jsonUrlString = "http://api.icndb.com/jokes/random/\(count)?escape=javascript"
         
         guard let url = URL(string: jsonUrlString) else { return }
@@ -23,8 +23,8 @@ class Networking {
             guard let data = data else { return }
             
             do {
-                let searchResult = try JSONDecoder().decode(JsonData.self, from: data)
-                completion(searchResult.value)
+                let result = try JSONDecoder().decode(JsonData.self, from: data)
+                completion(result.value)
             } catch {
                 print(error)
             }
