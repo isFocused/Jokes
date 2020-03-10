@@ -11,7 +11,7 @@ import UIKit
 class JokeViewController: UIViewController {
     // MARK: - Private property
     
-    private var jokes: [Joke]?
+    private var jokes: [JokeModel]?
     private var network: Networking?
     private var bottomConstraintLodingView: NSLayoutConstraint!
     

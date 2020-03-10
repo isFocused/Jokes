@@ -10,5 +10,5 @@ import Foundation
 
 struct JsonData: Codable {
     let type: String
-    let value: [Joke]
+    let value: [JokeModel]
 }

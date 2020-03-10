@@ -1,5 +1,5 @@
 //
-//  Joke.swift
+//  JokeModel.swift
 //  Jokes
 //
 //  Created by Denis Ivanov on 08.03.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Joke: Codable {
+struct JokeModel: Codable {
     let id: Int
     let joke: String
 }

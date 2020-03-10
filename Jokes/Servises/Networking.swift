@@ -9,7 +9,7 @@
 import Foundation
 
 class Networking {
-    func parseJokes(count: String, completion: @escaping ([Joke]) -> ()) {
+    func parseJokes(count: String, completion: @escaping ([JokeModel]) -> ()) {
         let jsonUrlString = "http://api.icndb.com/jokes/random/\(count)?escape=javascript"
         
         guard let url = URL(string: jsonUrlString) else { return }
