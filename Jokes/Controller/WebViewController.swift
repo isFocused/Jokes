@@ -9,7 +9,7 @@
 import WebKit
 class WebViewController: UIViewController {
     
-    private var urlRequest: URLRequest! = {
+    private let urlRequest: URLRequest! = {
         guard let url = URL(string: "http://www.icndb.com/api/") else { return nil }
         return URLRequest(url: url)
     }()
@@ -26,7 +26,7 @@ class WebViewController: UIViewController {
         addConstraintsToWebView()
     }
     
-    func addConstraintsToWebView() {
+    private func addConstraintsToWebView() {
         view.addSubview(webView)
         webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

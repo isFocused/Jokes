@@ -18,21 +18,21 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstViewController = create(JokeViewController(),
-                                     title: "Jokes",
-                                     image: #imageLiteral(resourceName: "jokesIcon"),
-                                     tag: 0)
-        secondViewController = create(WebViewController(),
-                                      title: "API",
-                                      image: #imageLiteral(resourceName: "apiIcon"),
-                                      tag: 1)
+        firstViewController = createNavigationController(JokesViewController(),
+                                                         title: "Jokes",
+                                                         image: #imageLiteral(resourceName: "jokesIcon"),
+                                                         tag: 0)
+        secondViewController = createNavigationController(WebViewController(),
+                                                          title: "API",
+                                                          image: #imageLiteral(resourceName: "apiIcon"),
+                                                          tag: 1)
         let tabBarList = [firstViewController, secondViewController]
         viewControllers = tabBarList as? [UIViewController]
     }
     
     // MARK: - Private methods
     
-    private func create(_ viewController: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+    private func createNavigationController(_ viewController: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
         let controller = UINavigationController(rootViewController: viewController)
         controller.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
         return controller

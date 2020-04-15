@@ -1,5 +1,5 @@
 //
-//  JokeViewController.swift
+//  JokesViewController.swift
 //  Jokes
 //
 //  Created by Denis Ivanov on 07.03.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JokeViewController: UIViewController {
+class JokesViewController: UIViewController {
     // MARK: - Private property
     
     private var jokes: [JokeModel]?
@@ -35,6 +35,12 @@ class JokeViewController: UIViewController {
     
     // MARK: - Override methods
     
+    override func loadView() {
+        super.loadView()
+        addTableViewToSuperView()
+        creatLoadView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Networking()
@@ -43,15 +49,7 @@ class JokeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadingViewRaiseAboveTheKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-        addTableViewToSuperView()
-        creatLoadView()
-    }
-    
+
     // MARK: - Actions
     
     @objc func loadJokes() {
@@ -78,7 +76,7 @@ class JokeViewController: UIViewController {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
-            self.bottomConstraintLodingView?.constant = -10
+            self.bottomConstraintLodingView?.constant = -90
             self.view.layoutSubviews()
         })
     }
@@ -95,16 +93,15 @@ class JokeViewController: UIViewController {
     
     private func creatLoadView() {
         view.addSubview(loadingView)
-        guard let tabBarTopAnchor = tabBarController?.tabBar.topAnchor else { return }
         loadingView.widthAnchor.constraint(equalToConstant: 170).isActive = true
         loadingView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bottomConstraintLodingView = loadingView.bottomAnchor.constraint(equalTo: tabBarTopAnchor, constant: -10)
+        bottomConstraintLodingView = loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90)
         bottomConstraintLodingView.isActive = true
     }
 }
 
-extension JokeViewController: UITableViewDataSource {
+extension JokesViewController: UITableViewDataSource {
     // MARK: - UTableViewDataSourse
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
